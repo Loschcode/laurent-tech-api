@@ -13,7 +13,7 @@ defmodule FeedApi.Router do
     plug Guardian.Plug.LoadResource
   end
 
-  scope "/api", FeedApi do
+  scope "/", FeedApi do
     pipe_through :api
 
     # Registration
@@ -27,7 +27,7 @@ defmodule FeedApi.Router do
     end
   end
 
-  scope "/api", FeedApi do
+  scope "/", FeedApi do
     pipe_through :api_auth
 
     get "/user/current", UserController, :current
