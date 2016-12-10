@@ -48,7 +48,7 @@ defmodule FeedApi.Scrappers.Twitter do
 
   defp link(data) do
     urls = data.entities.urls
-    unless (length(urls)) do
+    unless length(urls) == 0 do
       List.first(urls) |> Map.fetch(:expanded_url) |> Format.link
     end
   end

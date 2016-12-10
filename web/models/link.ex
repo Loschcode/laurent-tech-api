@@ -26,6 +26,6 @@ defmodule FeedApi.Link do
   def changeset(struct, params \\ %{}) do
     struct
     |> cast(params, [:title, :description, :url, :source, :published_at])
-    |> validate_required([:title, :description, :url])
+    |> validate_required([:title, :url])
   end
 end

@@ -14,23 +14,44 @@ defmodule FeedApi.Utils.Feeder do
 
     for tweet <- tweets do
 
-      if FeedApi.Repo.get_by(FeedApi.Link, title: tweet.message) == nil do
+      link = FeedApi.Repo.get_by(FeedApi.Link, title: tweet.message)
 
-        # let's insert this entry
-        FeedApi.Repo.insert! %FeedApi.Link{
-          title: tweet.message,
-          description: nil,
-          url: tweet.link,
-          source: "twitter",
-          published_at: tweet.date
-        }
+      if tweet.link != nil && tweet.message != nil && tweet.message != "" do
 
-      else
-        # the entry is already in the database
+        update_data!(link, tweet)
+
       end
+
     end
 
-    #
+  end
+
+  defp update_data!(link, data) do
+
+    if link == nil do
+
+      # let's insert this entry
+      FeedApi.Repo.insert! %FeedApi.Link{
+        title: data.message,
+        description: nil,
+        url: data.link,
+        source: "twitter",
+        published_at: data.date
+      }
+
+    else
+
+      # let's update this entry
+      FeedApi.Repo.update! FeedApi.Link.changeset(link, %{
+        title: data.message,
+        description: nil,
+        url: data.link,
+        source: "twitter",
+        published_at: data.date
+      })
+
+    end
+
   end
 
 

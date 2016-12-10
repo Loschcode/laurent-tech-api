@@ -53,7 +53,6 @@ defmodule FeedApi.LinkController do
   end
 
   def feed(conn, _params) do
-    IO.puts "fuck this shit"
     # we feed the database with
     # new links if possible
     FeedApi.Utils.Feeder.feed!
