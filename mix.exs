@@ -36,7 +36,7 @@ defmodule FeedApi.Mixfile do
      {:postgrex, ">= 0.0.0"},
      {:gettext, "~> 0.11"},
      {:cowboy, "~> 1.0"},
-     {:faker_elixir_octopus, "> 0.0.0", only: [:dev, :test]},
+     {:faker_elixir_octopus, "> 0.0.0"},
      {:cors_plug, "~> 1.1"},
      {:oauth, github: "tim/erlang-oauth"},
      {:extwitter, "0.7.2"},
