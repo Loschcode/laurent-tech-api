@@ -14,11 +14,9 @@ defmodule FeedApi.Utils.Feeder do
 
     for tweet <- tweets do
 
-      link = FeedApi.Repo.get_by(FeedApi.Link, title: tweet.message)
-
       if tweet.link != nil && tweet.message != nil && tweet.message != "" do
 
-        update_data!(link, tweet)
+        change_data!(FeedApi.Repo.get_by(FeedApi.Link, title: tweet.message), tweet)
 
       end
 
@@ -26,7 +24,7 @@ defmodule FeedApi.Utils.Feeder do
 
   end
 
-  defp update_data!(link, data) do
+  defp change_data!(link, data) do
 
     if link == nil do
 
@@ -47,7 +45,6 @@ defmodule FeedApi.Utils.Feeder do
         description: nil,
         url: data.link,
         source: "twitter",
-        published_at: data.date
       })
 
     end
