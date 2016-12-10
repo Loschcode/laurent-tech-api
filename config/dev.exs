@@ -13,6 +13,15 @@ config :feed_api, FeedApi.Endpoint,
   check_origin: false,
   watchers: []
 
+# Configure your database
+config :feed_api, FeedApi.Repo,
+  adapter: Ecto.Adapters.Postgres,
+  username: "feed",
+  password: "feeding",
+  database: "feed",
+  hostname: "localhost",
+  pool: Ecto.Adapters.SQL.Sandbox
+
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
 
