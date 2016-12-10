@@ -4,7 +4,7 @@ defmodule FeedApi.Mixfile do
   def project do
     [app: :feed_api,
      version: "0.0.1",
-     elixir: "1.0.3",
+     elixir: "~> 1.2",
      elixirc_paths: elixirc_paths(Mix.env),
      compilers: [:phoenix, :gettext] ++ Mix.compilers,
      build_embedded: Mix.env == :prod,
@@ -19,7 +19,7 @@ defmodule FeedApi.Mixfile do
   def application do
     [mod: {FeedApi, []},
      applications: [:phoenix, :phoenix_pubsub, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex, :faker_elixir_octopus, :extwitter, :timex, :comeonin, :edeliver]]
+                    :phoenix_ecto, :postgrex, :faker_elixir_octopus, :extwitter, :timex, :comeonin]]
   end
 
   # Specifies which paths to compile per environment.
@@ -43,9 +43,7 @@ defmodule FeedApi.Mixfile do
      {:timex, "~> 3.0"},
      {:comeonin, "~> 2.4"},
      {:ja_serializer, "~> 0.11.1"},
-     {:guardian, "~> 0.13.0"},
-     {:edeliver, "~> 1.4.0"},
-     {:distillery, ">= 0.8.0", warn_missing: false}]
+     {:guardian, "~> 0.13.0"}]
   end
 
   # Aliases are shortcuts or tasks specific to the current project.
