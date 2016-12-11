@@ -16,7 +16,7 @@ defmodule FeedApi.Scrappers.Twitter do
   # which are the message, link and date of creation of the Tweet
   defp fetch(stream) do
     for data <- stream do
-      handle(data)
+      data |> handle
     end
   end
 
@@ -24,8 +24,8 @@ defmodule FeedApi.Scrappers.Twitter do
   defp handle(data = %ExTwitter.Model.Tweet{}) do
     %{
       message: message(data),
-      link: link(data),
-      date: date(data)
+      link: data |> link,
+      date: data |> date
     }
   end
 
