@@ -25,7 +25,7 @@ defmodule FeedApi.Utils.Feeder do
     case entry do
       %{link: nil} -> false
       %{message: nil} -> false
-       %{message: ""} -> false
+      %{message: ""} -> false
        _ -> true
     end
   end
