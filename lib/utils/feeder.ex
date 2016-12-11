@@ -4,9 +4,7 @@ defmodule FeedApi.Utils.Feeder do
   We try to get the tweets from the timeline of the user
   It will fetch all the needed entry and return them into an array
   """
-  def feed! do
-    from_twitter!
-  end
+  def feed!, do: from_twitter!
 
   def from_twitter! do
     FeedApi.Scrappers.Twitter.dispatch! |> fetch!
@@ -20,35 +18,30 @@ defmodule FeedApi.Utils.Feeder do
     end
   end
 
-  defp valid?(entry = %{}) do
-    IO.inspect entry
-    case entry do
-      %{link: nil} -> false
-      %{message: nil} -> false
-      %{message: ""} -> false
-       _ -> true
-    end
+  defp valid?(%{link: nil}), do: false
+  defp valid?(%{message: nil}), do: false
+  defp valid?(%{message: ""}), do: false
+  defp valid?(_), do: true
+
+  defp change_entry!(nil, entry) do
+    # let's insert this entry
+    FeedApi.Repo.insert! %FeedApi.Link{
+      title: entry.message,
+      description: nil,
+      url: entry.link,
+      source: "twitter",
+      published_at: entry.date
+    }
   end
 
   defp change_entry!(link, entry) do
-    if link |> is_nil do
-      # let's insert this entry
-      FeedApi.Repo.insert! %FeedApi.Link{
-        title: entry.message,
-        description: nil,
-        url: entry.link,
-        source: "twitter",
-        published_at: entry.date
-      }
-    else
-      # let's update this entry
-      FeedApi.Repo.update! FeedApi.Link.changeset(link, %{
-        title: entry.message,
-        description: nil,
-        url: entry.link,
-        source: "twitter",
-      })
-    end
+    # let's update this entry
+    FeedApi.Repo.update! FeedApi.Link.changeset(link, %{
+      title: entry.message,
+      description: nil,
+      url: entry.link,
+      source: "twitter",
+    })
   end
 
 end
