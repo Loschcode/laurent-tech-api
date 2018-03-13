@@ -3,7 +3,7 @@ defmodule FeedApi.LinkController do
   alias FeedApi.Link
 
   def index(conn, _params) do
-    links = Link |> Link.sort_by_publication() |> Repo.all()
+    links = Link |> Link.sort_by_publication() |> limit(50) |> Repo.all()
     render(conn, "index.json", links: links)
   end
 
